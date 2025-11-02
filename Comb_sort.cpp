@@ -21,6 +21,9 @@ void combsort_alphabet(vector<pair<string,string>>& alphabet){
                 swap(alphabet[i],alphabet[i+gap]);
                 sorted = false;
             }
+            else if(alphabet[i].first == alphabet[i+gap].first){
+              sorted = false;
+            }
         }
     }
 }
@@ -40,6 +43,9 @@ void combsort_upvotes(vector<tuple<int,string,string>>& alphabet){
             if(get<0>(alphabet[i]) > get<0>(alphabet[i+gap])){
                 swap(alphabet[i],alphabet[i+gap]);
                 sorted = false;
+            }
+            else if(get<0>(alphabet[i]) == get<0>(alphabet[i+gap])){
+              sorted = false;
             }
         }
     }
@@ -61,6 +67,10 @@ void combsort_downvotes(vector<tuple<int,string,string>>& alphabet){
                 swap(alphabet[i],alphabet[i+gap]);
                 sorted = false;
             }
+            else if(get<0>(alphabet[i]) == get<0>(alphabet[i+gap])){
+                sorted = false;
+            }
         }
     }
 }
+
