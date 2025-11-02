@@ -3,4 +3,4 @@ project(slang_translator)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(slang_translator main.cpp Slang.cpp Slang.h)
+add_executable(slang_translator main.cpp Comb_sort.cpp merge_sort.cpp)
