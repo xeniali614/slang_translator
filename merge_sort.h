@@ -11,8 +11,8 @@
 //merge sort: split search in half continuously, sort each smaller piece
 
 
-void mergeAlphaData(std::vector<std::string>& slang, int low, int mid, int high);
-void mergeAlphaSort(std::vector<std::string>& slang, int low, int high);
+void mergeAlphaData(std::vector<pair<std::string ,std::string>>& slang, int low, int mid, int high);
+void mergeAlphaSort(std::vector<pair<std::string ,std::string>>& slang, int low, int high);
 void mergeVoteData(std::vector<std::tuple<int, std::string, std::string>>& slang, int low, int mid, int high);
 void mergeVoteSort(std::vector<std::tuple<int, std::string, std::string>>& slang, int low, int high);
 #endif //MERGE_SORT_H
