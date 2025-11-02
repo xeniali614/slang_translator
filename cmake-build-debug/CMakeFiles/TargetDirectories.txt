@@ -1,2 +1,0 @@
-C:/Users/xenia/CLionProjects/slang_translator/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/xenia/CLionProjects/slang_translator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
