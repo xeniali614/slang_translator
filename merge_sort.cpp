@@ -10,11 +10,11 @@
 //browse alphabetically or by upvotes
 //merge sort: split search in half continuously, sort each smaller piece
 //vector pair of word and def
-void mergeAlphaData(std::vector<pair<std::string ,std::string>>& slang, int low, int mid, int high){
+void mergeAlphaData(std::vector<std::pair<std::string ,std::string>>& slang, int low, int mid, int high){
   //put left half of data into a vector
-  std::vector<pair<std::string ,std::string>> leftData(slang.begin() + low, slang.begin() + mid + 1);
+  std::vector<std::pair<std::string ,std::string>> leftData(slang.begin() + low, slang.begin() + mid + 1);
   //put right half of data into a vector
-  std::vector<pair<std::string ,std::string>> rightData(slang.begin() + mid + 1, slang.begin() + high + 1);
+  std::vector<std::pair<std::string ,std::string>> rightData(slang.begin() + mid + 1, slang.begin() + high + 1);
   int i = 0;
   int j = 0;
   int k = low;
@@ -47,7 +47,7 @@ void mergeAlphaData(std::vector<pair<std::string ,std::string>>& slang, int low,
   }
 }
 
-void mergeAlphaSort(std::vector<pair<std::string ,std::string>>& slang, int low, int high){
+void mergeAlphaSort(std::vector<std::pair<std::string ,std::string>>& slang, int low, int high){
   if(low < high){
     int mid = low + (high - low) / 2;
     //sort left
@@ -71,7 +71,7 @@ void mergeVoteData(std::vector<std::tuple<int, std::string, std::string>>& slang
   while(i < leftData.size() && j < rightData.size()){
     //if the data on the left is less than or equal to the data on the right, put that data in slang
     //std::get<0> is used for tuples, accesses index 0 of data[i]
-    if(std::get<0>(leftData[i]) => std::get<0>(rightData[j])){
+    if(std::get<0>(leftData[i]) >= std::get<0>(rightData[j])){
       slang[k] = leftData[i];
       //increment i
       i++;
