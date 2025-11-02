@@ -13,7 +13,7 @@
 #include <map>
 using namespace std;
 
-void combsort_alphabet(std::vector<std::string>& alphabet);
+void combsort_alphabet(vector<pair<string,string>>& alphabet);
 void combsort_upvotes(vector<tuple<int,string,string>>& alphabet);
 void combsort_downvotes(vector<tuple<int,string,string>>& alphabet);
 
