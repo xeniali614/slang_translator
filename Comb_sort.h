@@ -7,10 +7,9 @@
 
 #include <iostream>
 #include <vector>
-#include <iostream>
 #include <tuple>
 #include <utility>
-#include <map>
+#include <string>
 using namespace std;
 
 void combsort_alphabet(vector<pair<string,string>>& alphabet);
