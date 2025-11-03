@@ -49,24 +49,65 @@ std::vector<fileRow> processFile() {
         getline(ss, cell, '"');
         rowCells.push_back(cell);
 
-        while (std::getline(ss, cell, ',')) {
-            rowCells.push_back(cell);
+        // Skip if data is missing a field
+        if (rowCells.size() < 6) {
+            continue;
         }
 
         // Process the current row's cells
-        fileRow curRow;
         try {
+            fileRow curRow;
             curRow.id = std::stol(rowCells[0]);
             curRow.word = rowCells[1];
             curRow.upvotes = std::stoi(rowCells[2]);
             curRow.downvotes = std::stoi(rowCells[3]);
             curRow.author = rowCells[4];
             curRow.definition = rowCells[5];
+
+
+
+            // Remove whitespace from the beginning and end of strings
+            size_t first = curRow.word.find_first_not_of(" \t\n\r\f\v");
+            if (std::string::npos == first) {
+                curRow.word = "";
+            }
+            size_t last = curRow.word.find_last_not_of(" \t\n\r\f\v");
+            curRow.word=curRow.word.substr(first, (last - first + 1));
+
+            first = curRow.definition.find_first_not_of(" \t\n\r\f\v");
+            if (std::string::npos == first) {
+                curRow.definition = "";
+            }
+            last = curRow.definition.find_last_not_of(" \t\n\r\f\v");
+            curRow.definition=curRow.definition.substr(first, (last - first + 1));
+
+            // Throw away data that isn't alphanumeric or whitespace
+            bool valid = true;
+            for (char c : curRow.word) {
+                if (!std::isalnum(c) && !std::isspace(c)) {
+                    valid = false;
+                    break;
+                }
+            }
+
+            // Throw away data without a valid number of upvotes or downvotes
+            if (curRow.upvotes < 0 || curRow.downvotes < 0) {
+                valid = false;
+            }
+
+            // Throw away data without a word or definition
+            if (curRow.word.empty() || curRow.definition.empty()) {
+                valid = false;
+            }
+
+            if (!valid) {
+                continue;
+            }
+
             data.push_back(curRow);
-        } catch (...) {
+        } catch (const std::exception& e) {
             continue;
         }
-
     }
 
     file.close();

@@ -46,7 +46,7 @@ void combsort_upvotes(vector<tuple<int,string,string>>& alphabet){
         }
         //switches the position of two if the string of i is infront of the upvote of i plus gap
         for(int i=0;i+gap <alphabet.size();i++){
-            if(get<0>(alphabet[i]) > get<0>(alphabet[i+gap])){
+            if(get<0>(alphabet[i]) < get<0>(alphabet[i+gap])){
                 swap(alphabet[i],alphabet[i+gap]);
                 sorted = false;
             }
@@ -72,7 +72,7 @@ void combsort_downvotes(vector<tuple<int,string,string>>& alphabet){
 
         //switches the position of two if the string of i is infront of the downvote of i plus gap
         for(int i=0;i+gap <alphabet.size();i++){
-            if(get<0>(alphabet[i]) > get<0>(alphabet[i+gap])){
+            if(get<0>(alphabet[i]) < get<0>(alphabet[i+gap])){
                 swap(alphabet[i],alphabet[i+gap]);
                 sorted = false;
             }

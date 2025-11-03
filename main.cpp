@@ -5,12 +5,16 @@
 #include <iostream>
 #include <sstream>
 #include <tuple>
+#include <ctime>
 #include "helper_functions.cpp"
 #include "Comb_sort.h"
+#include "merge_sort.h"
 
 int main() {
     // Parse the CSV
     std::vector<fileRow> fileData = processFile();
+    // std::cout << fileData.size() << std::endl;
+    // 2579173 > 2407631 > 2407619 > 2407611
 
     // Set data into pairs to be processed by the sorts
     std::vector<pair<std::string ,std::string>> byAlphabet;
@@ -22,13 +26,9 @@ int main() {
         byDownvotes.emplace_back(fileData[i].downvotes, fileData[i].word, fileData[i].definition);
     }
 
-    // Flags for sorts (used for execution times at the end)
-    bool combSorted = false;
-    bool mergeSorted = false;
-
     // Print welcome message and directions
     std::cout << "Welcome to Slang Translator!" << std::endl;
-    std::cout << "*Viewer discretion advised due to potential vulgar/offensive language from Urban Dictionary*" << std::endl << std::endl;
+    std::cout << "*** Viewer discretion advised due to potential vulgar/offensive language from the Urban Dictionary dataset ***" << std::endl << std::endl;
     commandInstructions();
 
     // Get user input
@@ -48,27 +48,49 @@ int main() {
                 letter = tolower(letter);
             }
 
+            // Choose browse method
+            sortInstructions();
+            int second_choice = getInput(1, 2);
+            double time_taken;
+
+
+            // Comb sort by upvotes
+            if (second_choice == 1) {
+                clock_t start_time = clock();
+                combsort_upvotes(byUpvotes);
+                clock_t end_time = clock();
+                time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
+
+            // Merge sort by upvotes
+            } else if (second_choice == 2) {
+                clock_t start_time = clock();
+                mergeVoteSort(byUpvotes, 0, byUpvotes.size()-1);
+                clock_t end_time = clock();
+                time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
+            }
+
             // Search for user input in fileData and print definitions
             int count = 0;
-            for (int i = 0; i < fileData.size(); i++) {
+            for (int i = 0; i < byUpvotes.size(); i++) {
                 // Process words in the dataset to be fully lowercase
-                std::string dataSlang = fileData[i].word;
+                std::string dataSlang = std::get<1>(byUpvotes[i]);
                 for (auto& letter : dataSlang) {
                     letter = tolower(letter);
                 }
 
                 if (dataSlang == slangInput) {
                     count++;
-                    std::cout << count << ") " << fileData[i].word << " - \"" << fileData[i].definition << "\"" << std::endl;
+                    std::cout << count << ") " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
                 }
             }
 
             if (count == 0) {
                 std::cout << "No results found :/" << std::endl;
             }
+            std::cout << std::endl;
+            std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
             // Re-print instructions
-            std::cout << std::endl;
             commandInstructions();
 
             // Get user's next choice
@@ -92,57 +114,94 @@ int main() {
             if (second_choice == 1) {
                 // Comb sort
                 if (third_choice == 1) {
-                    combSorted = true;
+                    clock_t start_time = clock();
                     combsort_alphabet(byAlphabet);
+                    clock_t end_time = clock();
+                    double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") " << std::get<0>(byAlphabet[i]) << " - " << std::get<1>(byAlphabet[i]) << std::endl;
+                        std::cout << i + 1 << ") " << std::get<0>(byAlphabet[i]) << " - \"" << std::get<1>(byAlphabet[i]) << "\"" << std::endl;
                     }
+                    std::cout << std::endl;
+                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
                 } else if (third_choice == 2) {
-                    mergeSorted = true;
-                    std::cout << "to do - merge sort alpha" << std::endl << std::endl;
-                }
+                    clock_t start_time = clock();
+                    mergeAlphaSort(byAlphabet, 0, byAlphabet.size()-1);
+                    clock_t end_time = clock();
+                    double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
+                    std::cout << "First 25 results: " << std::endl;
+                    for (int i = 0; i < 25; i++) {
+                        std::cout << i + 1 << ") " << std::get<0>(byAlphabet[i]) << " - \"" << std::get<1>(byAlphabet[i]) << "\"" << std::endl;
+                    }
+                    std::cout << std::endl;
+                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                }
 
             // Browse by upvotes
             } else if (second_choice == 2) {
                 // Comb sort
                 if (third_choice == 1) {
-                    combSorted = true;
+                    clock_t start_time = clock();
                     combsort_upvotes(byUpvotes);
+                    clock_t end_time = clock();
+                    double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") ↑" << std::get<0>(byUpvotes[i]) << " " << std::get<1>(byUpvotes[i]) << " - " << std::get<2>(byUpvotes[i]) << std::endl;
+                        std::cout << i + 1 << ") Upvotes: " << std::get<0>(byUpvotes[i]) << " " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
                     }
+                    std::cout << std::endl;
+                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
                 } else if (third_choice == 2) {
-                    mergeSorted = true;
-                    std::cout << "to do - merge sort upvotes" << std::endl << std::endl;
+                    clock_t start_time = clock();
+                    mergeVoteSort(byUpvotes, 0, byUpvotes.size() - 1);
+                    clock_t end_time = clock();
+                    double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
+
+                    std::cout << "First 25 results: " << std::endl;
+                    for (int i = 0; i < 25; i++) {
+                        std::cout << i + 1 << ") Upvotes: " << std::get<0>(byUpvotes[i]) << " " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
+                    }
+                    std::cout << std::endl;
+                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
                 }
 
             // Browse by downvotes
             } else if (second_choice == 3) {
                 // Comb sort
                 if (third_choice == 1) {
-                    combSorted = true;
+                    clock_t start_time = clock();
                     combsort_downvotes(byDownvotes);
+                    clock_t end_time = clock();
+                    double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") ↓" << std::get<0>(byDownvotes[i]) << " " << std::get<1>(byDownvotes[i]) << " - " << std::get<2>(byDownvotes[i]) << std::endl;
+                        std::cout << i + 1 << ") Downvotes: " << std::get<0>(byDownvotes[i]) << " " << std::get<1>(byDownvotes[i]) << " - \"" << std::get<2>(byDownvotes[i]) << "\"" << std::endl;
                     }
+                    std::cout << std::endl;
+                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
                 } else if (third_choice == 2) {
-                    mergeSorted = true;
-                    std::cout << "to do - merge sort downvotes" << std::endl << std::endl;
-                }
+                    clock_t start_time = clock();
+                    mergeVoteSort(byDownvotes, 0, byDownvotes.size() - 1);
+                    clock_t end_time = clock();
+                    double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
+                    std::cout << "First 25 results: " << std::endl;
+                    for (int i = 0; i < 25; i++) {
+                        std::cout << i + 1 << ") Downvotes: " << std::get<0>(byDownvotes[i]) << " " << std::get<1>(byDownvotes[i]) << " - \"" << std::get<2>(byDownvotes[i]) << "\"" << std::endl;
+                    }
+                    std::cout << std::endl;
+                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                }
             }
 
             // Get user's next choice
@@ -153,12 +212,6 @@ int main() {
 
     // Exit message
     std::cout << "Thank you for using Slang Translator! :)" << std::endl;
-    if (combSorted) {
-        std::cout << "Comb Sort execution time: " << std::endl;
-    }
-    if (mergeSorted) {
-        std::cout << "Merge Sort execution time: " << std::endl;
-    }
 
     return 0;
 }
