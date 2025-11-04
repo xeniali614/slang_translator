@@ -66,8 +66,6 @@ std::vector<fileRow> processFile() {
             curRow.author = rowCells[4];
             curRow.definition = rowCells[5];
 
-
-
             // Remove whitespace from the beginning and end of strings
             size_t first = curRow.word.find_first_not_of(" \t\n\r\f\v");
             if (std::string::npos == first) {
@@ -134,7 +132,7 @@ int getInput(int min, int max) {
         try {
             choice = std::stoi(curInput);
         } catch (const std::invalid_argument& e) {
-            std::cerr << "Invalid input. Please select 0, 1, or 2" << std::endl;
+            std::cerr << "Invalid input. Please select a number between " << min << " and " << max << std::endl;
             continue;
         }
         if (choice < min || choice > max) {
@@ -151,13 +149,13 @@ void sortInstructions() {
     std::cout << "2. Merge Sort" << std::endl;
 }
 
-void displaySearched25(int i, std::vector<std::tuple<int, std::string, std::string>>& byUpvotes) {
+void displaySearched25_upvotes(int i, std::vector<std::tuple<int, std::string, std::string>>& byUpvotes) {
     if (i == 0) {
         std::cout << "No more results :/" << std::endl;
     }else if (i < 25) {
         int count = 1;
         while (!byUpvotes.empty()) {
-            std::cout << count << ") " << std::get<1>(byUpvotes[0]) << " - \"" <<std::get<2>(byUpvotes[0]) << "\"" << std::endl;
+            std::cout << count << ") " << "Upvotes: " << std::get<0>(byUpvotes[0]) << " | " << std::get<1>(byUpvotes[0]) << " - \"" <<std::get<2>(byUpvotes[0]) << "\"" << std::endl;
             byUpvotes.erase(byUpvotes.begin());
             count++;
         }
@@ -172,12 +170,62 @@ void displaySearched25(int i, std::vector<std::tuple<int, std::string, std::stri
             std::cout << "\n--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
             int end_index = std::min(g + 25, i);
             for (int j = g; j < end_index; j++) {
-                std::cout << (j + 1) << ") " << std::get<1>(byUpvotes[j]) << " - \"" << std::get<2>(byUpvotes[j]) << "\"" << std::endl;
+                std::cout << (j + 1) << ") " << "Upvotes: " << std::get<0>(byUpvotes[j]) << " | " << std::get<1>(byUpvotes[j]) << " - \"" << std::get<2>(byUpvotes[j]) << "\"" << std::endl;
             }
+            std::cout  << std::endl;
             std::string input;
-            std::cout << "0. exit" << std::endl;
-            std::cout << "1. previous page" << std::endl;
-            std::cout << "2. next page" << std::endl;
+            std::cout << "0. Return to menu" << std::endl;
+            std::cout << "1. Previous page" << std::endl;
+            std::cout << "2. Next page" << std::endl;
+            std::getline(std::cin, input);
+            if (input == "0") {
+                break;
+            }else if (input == "1") {
+                if (page_number == 1) {
+                    std::cout << "You are on the First Page" << std::endl;
+                }else{
+                    page_number--;
+                    g-=25;
+                }
+            }else if (input == "2") {
+                if (page_number == (num_pages)) {
+                    std::cout << "You are on the Last Page" << std::endl;
+                }else {
+                    page_number++;
+                    g+=25;
+                }
+            }
+        }
+    }
+}
+void displaySearched25_downvotes(int i, std::vector<std::tuple<int, std::string, std::string>>& byDownvotes) {
+    if (i == 0) {
+        std::cout << "No more results :/" << std::endl;
+    }else if (i < 25) {
+        int count = 1;
+        while (!byDownvotes.empty()) {
+            std::cout << count << ") " << "Downvotes: " << std::get<0>(byDownvotes[0]) << " | " << std::get<1>(byDownvotes[0]) << " - \"" <<std::get<2>(byDownvotes[0]) << "\"" << std::endl;
+            byDownvotes.erase(byDownvotes.begin());
+            count++;
+        }
+    }else {
+        int count = 1;
+        //if there are more than 25 entries make pages
+        int page_number = 1;
+        int g = 0;
+        //number of pages, get decimal val
+        int num_pages = ceil(i/25.00);
+        while (true) {
+            std::cout << "\n--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
+            int end_index = std::min(g + 25, i);
+            for (int j = g; j < end_index; j++) {
+                std::cout << (j + 1) << ") " << "Downvotes: " << std::get<0>(byDownvotes[j]) << " | " << std::get<1>(byDownvotes[j]) << " - \"" << std::get<2>(byDownvotes[j]) << "\"" << std::endl;
+            }
+            std::cout  << std::endl;
+            std::string input;
+            std::cout << "0. Return to menu" << std::endl;
+            std::cout << "1. Previous page" << std::endl;
+            std::cout << "2. Next page" << std::endl;
             std::getline(std::cin, input);
             if (input == "0") {
                 break;
@@ -222,10 +270,11 @@ void displaySearched25_alphabet(int i, std::vector<std::pair<std::string, std::s
             for (int j = g; j < end_index; j++) {
                 std::cout << (j + 1) << ") " << byAlphabet[j].first<< " - \"" << byAlphabet[j].second << "\"" << std::endl;
             }
+            std::cout  << std::endl;
             std::string input;
-            std::cout << "0. exit" << std::endl;
-            std::cout << "1. previous page" << std::endl;
-            std::cout << "2. next page" << std::endl;
+            std::cout << "0. Return to menu" << std::endl;
+            std::cout << "1. Previous page" << std::endl;
+            std::cout << "2. Next page" << std::endl;
             std::getline(std::cin, input);
             if (input == "0") {
                 break;

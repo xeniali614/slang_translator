@@ -13,8 +13,6 @@
 int main() {
     // Parse the CSV
     std::vector<fileRow> fileData = processFile();
-    // std::cout << fileData.size() << std::endl;
-    // 2579173 > 2407631 > 2407619 > 2407611
 
     // Set data into pairs to be processed by the sorts
     std::vector<pair<std::string ,std::string>> byAlphabet;
@@ -70,42 +68,22 @@ int main() {
 
             // Search for user input in fileData and print definitions
             //create vector of matched entries
-            std::vector<std::tuple<int, std::string, std::string>> matchedEntries;
+            std::vector<std::pair<std::string, std::string>> matchedEntries;
             for (int i = 0; i < byUpvotes.size(); i++) {
                 //process words in the dataset to be lowercase
-                std::string dataSlang = std::get<1>(byUpvotes[i]);
+                std::string dataSlang = byAlphabet[i].first;
                 for (auto& letter : dataSlang) {
                     letter = tolower(letter);
                 }
                 if (dataSlang == slangInput) {
                     //push into vector
-                    matchedEntries.push_back(byUpvotes[i]);
+                    matchedEntries.push_back(byAlphabet[i]);
                 }
             }
 
-            displaySearched25(static_cast<int>(matchedEntries.size()), matchedEntries);
+            displaySearched25_alphabet(static_cast<int>(matchedEntries.size()), matchedEntries);
             std::cout << std::endl;
             std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
-
-            /*int count = 0;
-            for (int i = 0; i < byUpvotes.size(); i++) {
-                // Process words in the dataset to be fully lowercase
-                std::string dataSlang = std::get<1>(byUpvotes[i]);
-                for (auto& letter : dataSlang) {
-                    letter = tolower(letter);
-                }
-
-                if (dataSlang == slangInput) {
-                    count++;
-                    std::cout << count << ") " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
-                }
-            }
-
-            if (count == 0) {
-                std::cout << "No results found :/" << std::endl;
-            }
-            std::cout << std::endl;
-            std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;*/
 
             // Re-print instructions
             commandInstructions();
@@ -136,10 +114,6 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    /*std::cout << "First 25 results: " << std::endl;
-                    for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") " << std::get<0>(byAlphabet[i]) << " - \"" << std::get<1>(byAlphabet[i]) << "\"" << std::endl;
-                    }*/
                     displaySearched25_alphabet(static_cast<int>(byAlphabet.size()), byAlphabet);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
@@ -151,10 +125,6 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    /*std::cout << "First 25 results: " << std::endl;
-                    for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") " << std::get<0>(byAlphabet[i]) << " - \"" << std::get<1>(byAlphabet[i]) << "\"" << std::endl;
-                    }*/
                     displaySearched25_alphabet(static_cast<int>(byAlphabet.size()), byAlphabet);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
@@ -169,12 +139,7 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    /*std::cout << "First 25 results: " << std::endl;
-                    for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") Upvotes: " << std::get<0>(byUpvotes[i]) << " " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
-                    }*/
-                    displaySearched25(static_cast<int>(byAlphabet.size()), byUpvotes);
-                    std::cout << std::endl;
+                    displaySearched25_upvotes(static_cast<int>(byAlphabet.size()), byUpvotes);
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
@@ -184,12 +149,7 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    /*std::cout << "First 25 results: " << std::endl;
-                    for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") Upvotes: " << std::get<0>(byUpvotes[i]) << " " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
-                    }*/
-                    displaySearched25(static_cast<int>(byAlphabet.size()), byUpvotes);
-                    std::cout << std::endl;
+                    displaySearched25_upvotes(static_cast<int>(byAlphabet.size()), byUpvotes);
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
                 }
 
@@ -202,12 +162,7 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    /*std::cout << "First 25 results: " << std::endl;
-                    for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") Downvotes: " << std::get<0>(byDownvotes[i]) << " " << std::get<1>(byDownvotes[i]) << " - \"" << std::get<2>(byDownvotes[i]) << "\"" << std::endl;
-                    }*/
-                    displaySearched25(static_cast<int>(byAlphabet.size()), byDownvotes);
-                    std::cout << std::endl;
+                    displaySearched25_downvotes(static_cast<int>(byAlphabet.size()), byDownvotes);
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
@@ -217,12 +172,7 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    /*std::cout << "First 25 results: " << std::endl;
-                    for (int i = 0; i < 25; i++) {
-                        std::cout << i + 1 << ") Downvotes: " << std::get<0>(byDownvotes[i]) << " " << std::get<1>(byDownvotes[i]) << " - \"" << std::get<2>(byDownvotes[i]) << "\"" << std::endl;
-                    }*/
-                    displaySearched25(static_cast<int>(byAlphabet.size()), byDownvotes);
-                    std::cout << std::endl;
+                    displaySearched25_downvotes(static_cast<int>(byAlphabet.size()), byDownvotes);
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
                 }
             }
