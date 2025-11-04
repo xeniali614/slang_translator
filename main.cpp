@@ -83,7 +83,7 @@ int main() {
 
             displaySearched25_alphabet(static_cast<int>(matchedEntries.size()), matchedEntries);
             std::cout << std::endl;
-            std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+            std::cout << "Sorting time elapsed: " << time_taken << " seconds" << std::endl << std::endl;
 
             // Re-print instructions
             commandInstructions();
@@ -115,8 +115,7 @@ int main() {
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     displaySearched25_alphabet(static_cast<int>(byAlphabet.size()), byAlphabet);
-                    std::cout << std::endl;
-                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                    std::cout << "Sorting time elapsed: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
                 } else if (third_choice == 2) {
@@ -126,8 +125,7 @@ int main() {
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     displaySearched25_alphabet(static_cast<int>(byAlphabet.size()), byAlphabet);
-                    std::cout << std::endl;
-                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                    std::cout << "Sorting time elapsed: " << time_taken << " seconds" << std::endl << std::endl;
                 }
 
             // Browse by upvotes
@@ -140,7 +138,7 @@ int main() {
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     displaySearched25_upvotes(static_cast<int>(byAlphabet.size()), byUpvotes);
-                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                    std::cout << "Sorting time elapsed: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
                 } else if (third_choice == 2) {
@@ -150,7 +148,7 @@ int main() {
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     displaySearched25_upvotes(static_cast<int>(byAlphabet.size()), byUpvotes);
-                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                    std::cout << "Sorting time elapsed: " << time_taken << " seconds" << std::endl << std::endl;
                 }
 
             // Browse by downvotes
@@ -163,7 +161,7 @@ int main() {
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     displaySearched25_downvotes(static_cast<int>(byAlphabet.size()), byDownvotes);
-                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                    std::cout << "Sorting time elapsed: " << time_taken << " seconds" << std::endl << std::endl;
 
                 // Merge sort
                 } else if (third_choice == 2) {
@@ -173,7 +171,7 @@ int main() {
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
                     displaySearched25_downvotes(static_cast<int>(byAlphabet.size()), byDownvotes);
-                    std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+                    std::cout << "Sorting time elapsed: " << time_taken << " seconds" << std::endl << std::endl;
                 }
             }
             // Get user's next choice

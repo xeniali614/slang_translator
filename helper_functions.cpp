@@ -126,6 +126,7 @@ int getInput(int min, int max) {
         // Get user input
         std::string curInput;
         std::getline(std::cin, curInput);
+
         // Safely process user input
         int choice = -1;
         try {
@@ -150,7 +151,7 @@ void sortInstructions() {
 
 void displaySearched25_upvotes(int i, std::vector<std::tuple<int, std::string, std::string>>& byUpvotes) {
     if (i == 0) {
-        std::cout << "No more results :/" << std::endl;
+        std::cout << "No results found :/" << std::endl;
     }else if (i < 25) {
         int count = 1;
         while (!byUpvotes.empty()) {
@@ -165,7 +166,7 @@ void displaySearched25_upvotes(int i, std::vector<std::tuple<int, std::string, s
         //number of pages, get decimal val
         int num_pages = ceil(i/25.00);
         while (true) {
-            std::cout << "\n--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
+            std::cout << "--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
             int end_index = std::min(g + 25, i);
             for (int j = g; j < end_index; j++) {
                 std::cout << (j + 1) << ") " << "Upvotes: " << std::get<0>(byUpvotes[j]) << " | " << std::get<1>(byUpvotes[j]) << " - \"" << std::get<2>(byUpvotes[j]) << "\"" << std::endl;
@@ -195,9 +196,10 @@ void displaySearched25_upvotes(int i, std::vector<std::tuple<int, std::string, s
         }
     }
 }
+
 void displaySearched25_downvotes(int i, std::vector<std::tuple<int, std::string, std::string>>& byDownvotes) {
     if (i == 0) {
-        std::cout << "No more results :/" << std::endl;
+        std::cout << "No results found :/" << std::endl;
     }else if (i < 25) {
         int count = 1;
         while (!byDownvotes.empty()) {
@@ -213,7 +215,7 @@ void displaySearched25_downvotes(int i, std::vector<std::tuple<int, std::string,
         //number of pages, get decimal val
         int num_pages = ceil(i/25.00);
         while (true) {
-            std::cout << "\n--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
+            std::cout << "--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
             int end_index = std::min(g + 25, i);
             for (int j = g; j < end_index; j++) {
                 std::cout << (j + 1) << ") " << "Downvotes: " << std::get<0>(byDownvotes[j]) << " | " << std::get<1>(byDownvotes[j]) << " - \"" << std::get<2>(byDownvotes[j]) << "\"" << std::endl;
@@ -243,9 +245,10 @@ void displaySearched25_downvotes(int i, std::vector<std::tuple<int, std::string,
         }
     }
 }
+
 void displaySearched25_alphabet(int i, std::vector<std::pair<std::string, std::string>>& byAlphabet) {
     if (i == 0) {
-        std::cout << "No more results :/" << std::endl;
+        std::cout << "No results found :/" << std::endl;
     }else if (i < 25) {
         int count = 1;
         while (!byAlphabet.empty()) {
@@ -261,7 +264,7 @@ void displaySearched25_alphabet(int i, std::vector<std::pair<std::string, std::s
         //number of pages, get decimal val
         int num_pages = ceil(i/25.00);
         while (true) {
-            std::cout << "\n--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
+            std::cout << "--- Page " << page_number << " of " << num_pages << " ---" << std::endl;
             int end_index = std::min(g + 25, i);
             for (int j = g; j < end_index; j++) {
                 std::cout << (j + 1) << ") " << byAlphabet[j].first<< " - \"" << byAlphabet[j].second << "\"" << std::endl;
