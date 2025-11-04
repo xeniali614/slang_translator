@@ -126,7 +126,6 @@ int getInput(int min, int max) {
         // Get user input
         std::string curInput;
         std::getline(std::cin, curInput);
-
         // Safely process user input
         int choice = -1;
         try {
@@ -160,7 +159,6 @@ void displaySearched25_upvotes(int i, std::vector<std::tuple<int, std::string, s
             count++;
         }
     }else {
-        int count = 1;
         //if there are more than 25 entries make pages
         int page_number = 1;
         int g = 0;
@@ -173,21 +171,20 @@ void displaySearched25_upvotes(int i, std::vector<std::tuple<int, std::string, s
                 std::cout << (j + 1) << ") " << "Upvotes: " << std::get<0>(byUpvotes[j]) << " | " << std::get<1>(byUpvotes[j]) << " - \"" << std::get<2>(byUpvotes[j]) << "\"" << std::endl;
             }
             std::cout  << std::endl;
-            std::string input;
             std::cout << "0. Return to menu" << std::endl;
             std::cout << "1. Previous page" << std::endl;
             std::cout << "2. Next page" << std::endl;
-            std::getline(std::cin, input);
-            if (input == "0") {
+            int input= getInput(0, 2);
+            if (input == 0) {
                 break;
-            }else if (input == "1") {
+            }else if (input == 1) {
                 if (page_number == 1) {
                     std::cout << "You are on the First Page" << std::endl;
                 }else{
                     page_number--;
                     g-=25;
                 }
-            }else if (input == "2") {
+            }else if (input == 2) {
                 if (page_number == (num_pages)) {
                     std::cout << "You are on the Last Page" << std::endl;
                 }else {
@@ -222,21 +219,20 @@ void displaySearched25_downvotes(int i, std::vector<std::tuple<int, std::string,
                 std::cout << (j + 1) << ") " << "Downvotes: " << std::get<0>(byDownvotes[j]) << " | " << std::get<1>(byDownvotes[j]) << " - \"" << std::get<2>(byDownvotes[j]) << "\"" << std::endl;
             }
             std::cout  << std::endl;
-            std::string input;
             std::cout << "0. Return to menu" << std::endl;
             std::cout << "1. Previous page" << std::endl;
             std::cout << "2. Next page" << std::endl;
-            std::getline(std::cin, input);
-            if (input == "0") {
+            int input = getInput(0, 2);
+            if (input == 0) {
                 break;
-            }else if (input == "1") {
+            }else if (input == 1) {
                 if (page_number == 1) {
                     std::cout << "You are on the First Page" << std::endl;
                 }else{
                     page_number--;
                     g-=25;
                 }
-            }else if (input == "2") {
+            }else if (input == 2) {
                 if (page_number == (num_pages)) {
                     std::cout << "You are on the Last Page" << std::endl;
                 }else {
@@ -271,21 +267,20 @@ void displaySearched25_alphabet(int i, std::vector<std::pair<std::string, std::s
                 std::cout << (j + 1) << ") " << byAlphabet[j].first<< " - \"" << byAlphabet[j].second << "\"" << std::endl;
             }
             std::cout  << std::endl;
-            std::string input;
             std::cout << "0. Return to menu" << std::endl;
             std::cout << "1. Previous page" << std::endl;
             std::cout << "2. Next page" << std::endl;
-            std::getline(std::cin, input);
-            if (input == "0") {
+            int input= getInput(0, 2);
+            if (input == 0) {
                 break;
-            }else if (input == "1") {
+            }else if (input == 1) {
                 if (page_number == 1) {
                     std::cout << "You are on the First Page" << std::endl;
                 }else{
                     page_number--;
                     g-=25;
                 }
-            }else if (input == "2") {
+            }else if (input == 2) {
                 if (page_number == (num_pages)) {
                     std::cout << "You are on the Last Page" << std::endl;
                 }else {
