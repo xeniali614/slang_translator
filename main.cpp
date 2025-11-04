@@ -53,7 +53,6 @@ int main() {
             int second_choice = getInput(1, 2);
             double time_taken;
 
-
             // Comb sort by upvotes
             if (second_choice == 1) {
                 clock_t start_time = clock();
@@ -70,7 +69,25 @@ int main() {
             }
 
             // Search for user input in fileData and print definitions
-            int count = 0;
+            //create vector of matched entries
+            std::vector<std::tuple<int, std::string, std::string>> matchedEntries;
+            for (int i = 0; i < byUpvotes.size(); i++) {
+                //process words in the dataset to be lowercase
+                std::string dataSlang = std::get<1>(byUpvotes[i]);
+                for (auto& letter : dataSlang) {
+                    letter = tolower(letter);
+                }
+                if (dataSlang == slangInput) {
+                    //push into vector
+                    matchedEntries.push_back(byUpvotes[i]);
+                }
+            }
+
+            displaySearched25(static_cast<int>(matchedEntries.size()), matchedEntries);
+            std::cout << std::endl;
+            std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+
+            /*int count = 0;
             for (int i = 0; i < byUpvotes.size(); i++) {
                 // Process words in the dataset to be fully lowercase
                 std::string dataSlang = std::get<1>(byUpvotes[i]);
@@ -88,7 +105,7 @@ int main() {
                 std::cout << "No results found :/" << std::endl;
             }
             std::cout << std::endl;
-            std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
+            std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;*/
 
             // Re-print instructions
             commandInstructions();

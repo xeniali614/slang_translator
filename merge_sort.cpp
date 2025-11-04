@@ -69,7 +69,7 @@ void mergeVoteData(std::vector<std::tuple<int, std::string, std::string>>& slang
   int k = low;
 
   while(i < leftData.size() && j < rightData.size()){
-    //if the data on the left is less than or equal to the data on the right, put that data in slang
+    //if the data on the left is greater than or equal to the data on the right, put that data in slang
     //std::get<0> is used for tuples, accesses index 0 of data[i]
     if(std::get<0>(leftData[i]) >= std::get<0>(rightData[j])){
       slang[k] = leftData[i];

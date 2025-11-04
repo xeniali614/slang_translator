@@ -8,6 +8,7 @@
 #include <sstream>
 #include <vector>
 #include <cctype>
+#include <tuple>
 
 struct fileRow {
     long int id;
@@ -20,8 +21,8 @@ struct fileRow {
 
 std::vector<fileRow> processFile() {
     // Open file
-    std::ifstream file("urbandict-word-defs.csv");
-    //std::ifstream file("smaller-test-file.csv");
+    //std::ifstream file("urbandict-word-defs.csv");
+    std::ifstream file("smaller-test-file.csv");
     if (!file.is_open()) {
         std::cerr << "Error opening file." << std::endl;
         return {};
@@ -147,4 +148,24 @@ void sortInstructions() {
     std::cout << "Please select a sort method: " << std::endl;
     std::cout << "1. Comb Sort" << std::endl;
     std::cout << "2. Merge Sort" << std::endl;
+}
+
+void displaySearched25(int i, std::vector<std::tuple<int, std::string, std::string>>& byUpvotes) {
+    if (i == 0) {
+        std::cout << "No more results :/" << std::endl;
+    }else if (i < 25) {
+        int count = 1;
+        while (!byUpvotes.empty()) {
+            std::cout << count << ") " << std::get<1>(byUpvotes[0]) << " - \"" <<std::get<2>(byUpvotes[0]) << "\"" << std::endl;
+            byUpvotes.erase(byUpvotes.begin());
+            count++;
+        }
+    }else {
+        int count = 1;
+        for (int j = 0; (j < 25 && !byUpvotes.empty()); j++) {
+            std::cout << count << ") " << std::get<1>(byUpvotes[0]) << " - \"" <<std::get<2>(byUpvotes[0]) << "\"" << std::endl;
+            byUpvotes.erase(byUpvotes.begin());
+            count++;
+        }
+    }
 }
