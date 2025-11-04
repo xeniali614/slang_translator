@@ -136,10 +136,11 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    std::cout << "First 25 results: " << std::endl;
+                    /*std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
                         std::cout << i + 1 << ") " << std::get<0>(byAlphabet[i]) << " - \"" << std::get<1>(byAlphabet[i]) << "\"" << std::endl;
-                    }
+                    }*/
+                    displaySearched25_alphabet(static_cast<int>(byAlphabet.size()), byAlphabet);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
@@ -150,10 +151,11 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    std::cout << "First 25 results: " << std::endl;
+                    /*std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
                         std::cout << i + 1 << ") " << std::get<0>(byAlphabet[i]) << " - \"" << std::get<1>(byAlphabet[i]) << "\"" << std::endl;
-                    }
+                    }*/
+                    displaySearched25_alphabet(static_cast<int>(byAlphabet.size()), byAlphabet);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
                 }
@@ -167,10 +169,11 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    std::cout << "First 25 results: " << std::endl;
+                    /*std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
                         std::cout << i + 1 << ") Upvotes: " << std::get<0>(byUpvotes[i]) << " " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
-                    }
+                    }*/
+                    displaySearched25(static_cast<int>(byAlphabet.size()), byUpvotes);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
@@ -181,10 +184,11 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    std::cout << "First 25 results: " << std::endl;
+                    /*std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
                         std::cout << i + 1 << ") Upvotes: " << std::get<0>(byUpvotes[i]) << " " << std::get<1>(byUpvotes[i]) << " - \"" << std::get<2>(byUpvotes[i]) << "\"" << std::endl;
-                    }
+                    }*/
+                    displaySearched25(static_cast<int>(byAlphabet.size()), byUpvotes);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
                 }
@@ -198,10 +202,11 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    std::cout << "First 25 results: " << std::endl;
+                    /*std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
                         std::cout << i + 1 << ") Downvotes: " << std::get<0>(byDownvotes[i]) << " " << std::get<1>(byDownvotes[i]) << " - \"" << std::get<2>(byDownvotes[i]) << "\"" << std::endl;
-                    }
+                    }*/
+                    displaySearched25(static_cast<int>(byAlphabet.size()), byDownvotes);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
 
@@ -212,23 +217,21 @@ int main() {
                     clock_t end_time = clock();
                     double time_taken = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
-                    std::cout << "First 25 results: " << std::endl;
+                    /*std::cout << "First 25 results: " << std::endl;
                     for (int i = 0; i < 25; i++) {
                         std::cout << i + 1 << ") Downvotes: " << std::get<0>(byDownvotes[i]) << " " << std::get<1>(byDownvotes[i]) << " - \"" << std::get<2>(byDownvotes[i]) << "\"" << std::endl;
-                    }
+                    }*/
+                    displaySearched25(static_cast<int>(byAlphabet.size()), byDownvotes);
                     std::cout << std::endl;
                     std::cout << "Time taken: " << time_taken << " seconds" << std::endl << std::endl;
                 }
             }
-
             // Get user's next choice
             commandInstructions();
             first_choice = getInput(0, 2);
         }
     }
-
     // Exit message
     std::cout << "Thank you for using Slang Translator! :)" << std::endl;
-
     return 0;
 }
